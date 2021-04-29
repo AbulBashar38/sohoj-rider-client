@@ -1,11 +1,17 @@
-import React from 'react';
+import firebase from "firebase/app";
+import "firebase/auth";
 
-const LoginManager = () => {
-    return (
-        <div>
-            
-        </div>
-    );
-};
-
-export default LoginManager;
+export const emailSignIn=(email,password)=>{
+    return firebase.auth().signInWithEmailAndPassword(email, password)
+  .then(res => {
+    const user = res.user;
+    return user
+  })
+  .catch((error) => {
+    const userInfo = {};
+    const errorMessage = error.message;
+    userInfo.error = errorMessage;
+    userInfo.isSignIn = false;
+    return userInfo;
+  });
+}
