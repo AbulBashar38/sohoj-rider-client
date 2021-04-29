@@ -16,7 +16,7 @@ const Home = () => {
         <Container>
             <Header></Header>
             <Row className="riders-container">
-            {rides.map(ride=><Rides ride={ride}></Rides>)}
+            {rides.map(ride=><Rides key={ride.name} ride={ride}></Rides>)}
             </Row>
            
         </Container>

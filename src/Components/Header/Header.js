@@ -1,6 +1,6 @@
 import React from 'react';
 import './Header.css'
-import { Button, Container, Nav, Navbar } from 'react-bootstrap';
+import { Button, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
@@ -10,19 +10,19 @@ const Header = () => {
                 <Navbar.Collapse className="justify-content-end">
                     <Nav>
                         <Nav.Item>
-                            <Nav.Link><Link className='link-style' style={{ textDecoration: 'none' }} to='/home'>Home</Link></Nav.Link>
+                            <Link className='link-style' to='/home'>Home</Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link><Link className='link-style' style={{ textDecoration: 'none' }} to='/destination'>Destination</Link></Nav.Link>
+                            <Link className='link-style' to='/destination'>Destination</Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link><Link className='link-style' style={{ textDecoration: 'none' }}>Blog</Link></Nav.Link>
+                            <Link to='/blog' className='link-style'>Blog</Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link><Link className='link-style' style={{ textDecoration: 'none' }}>Contact</Link></Nav.Link>
+                            <Link to='/contact' className='link-style'>Contact</Link>
                         </Nav.Item>
                     </Nav>
-                    <Button variant="danger">Login</Button>
+                    <Button variant="danger"><Link to='/login' style={{color:'white',textDecoration: 'none'}}>Login</Link></Button>
                 </Navbar.Collapse>
             </Navbar>
         

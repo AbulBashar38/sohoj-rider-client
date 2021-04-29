@@ -8,22 +8,23 @@ const CreateUser = () => {
     const [user, setUser] = useState({
         name: '',
         email: '',
-        password:'',
-    }) 
+        password: '',
+        passNotMatch: false
+    })
 
     const emailAndPassChecker = (e) => {
         let isValid;
-        if (e.target.name==='email') {
-            const validEmailExpressions  =/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (e.target.name === 'email') {
+            const validEmailExpressions = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             const emailValid = validEmailExpressions.test(e.target.value)
             isValid = emailValid;
         }
-        if (e.target.name==='password') {
+        if (e.target.name === 'password') {
             const validPassExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
-            
+
             const passValid = validPassExpression.test(e.target.value)
             if (passValid) {
-                user.password=e.target.value;
+                user.password = e.target.value;
             }
             isValid = passValid;
         }
@@ -31,31 +32,36 @@ const CreateUser = () => {
             if (e.target.value === user.password) {
                 isValid = true
             }
+            else {
+                const userInfo = { ...user };
+                userInfo.passNotMatch = true
+                setUser(userInfo)
+            }
         }
-        if (e.target.name==='name') {
+        if (e.target.name === 'name') {
             user.name = e.target.value
         }
         if (isValid) {
-            const userInfo = {...user};
-            userInfo[e.target.name]=e.target.value;
+            const userInfo = { ...user };
+            userInfo[e.target.name] = e.target.value;
             setUser(userInfo)
         }
-        
+
     }
     const CreateAccount = (e) => {
-        if (user.email&&user.password) {
-            createUserByEmail(user.name,user.email,user.password)
-            .then(res=>{
-                setUser(res);
-            })
+        if (user.email && user.confirmPass) {
+            createUserByEmail(user.name, user.email, user.password)
+                .then(res => {
+                    setUser(res);
+                })
         }
         e.preventDefault()
     }
-    const loginWithGoogle=()=>{
+    const loginWithGoogle = () => {
         googleLogin()
-        .then(res=>{
-            setUser(res)
-        })
+            .then(res => {
+                setUser(res)
+            })
     }
     return (
         <Container>
@@ -73,11 +79,23 @@ const CreateUser = () => {
                     </Form.Group>
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password"name='password' onBlur={emailAndPassChecker}placeholder="Password" required />
+                        <Form.Control type="password" name='password' onBlur={emailAndPassChecker} placeholder="Password" required />
+                        <Form.Text className="text-muted">
+                            At least one number and one spacial character(!,@,#,$,%,^,*) need in your password
+                        </Form.Text>
                     </Form.Group>
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>Confirm password</Form.Label>
-                        <Form.Control type="password"name='confirmPass' onBlur={emailAndPassChecker}placeholder="Confirm password" required />
+                        <Form.Control type="password" name='confirmPass' onChange={emailAndPassChecker} placeholder="Confirm password" required />
+                        <p style={{ color: 'red' }}>
+                            {user.passNotMatch ? 'Password dose not match' : ''}
+                        </p>
+                        <p style={{ color: 'red' }}>
+                            {
+                                user.error
+                            }
+                        </p>
+
                     </Form.Group>
                     <Button onClick={CreateAccount} variant="primary" type="submit" block>
                         Create account

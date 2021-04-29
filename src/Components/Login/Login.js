@@ -19,7 +19,6 @@ const Login = () => {
     const loginByEmail = (e) => {
         emailSignIn(user.email, user.password)
             .then(res => {
-                console.log(res);
                 setUser(res)
             })
         e.preventDefault()
@@ -47,6 +46,9 @@ const Login = () => {
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" placeholder="Password"onBlur={handelInputValue} name='password' />
                     </Form.Group>
+                    <p style={{ color: 'red' }}>
+                        {user.error}
+                    </p>
                     <Button variant="primary" type="submit" onClick={loginByEmail} block>
                         Login
                     </Button>
