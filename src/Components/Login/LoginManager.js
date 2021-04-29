@@ -4,8 +4,9 @@ import "firebase/auth";
 export const emailSignIn=(email,password)=>{
     return firebase.auth().signInWithEmailAndPassword(email, password)
   .then(res => {
-    const user = res.user;
-    return user
+    const userInfo = res.user;
+    userInfo.isSignIn=true;
+    return userInfo
   })
   .catch((error) => {
     const userInfo = {};

@@ -1,13 +1,21 @@
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import { UserContext } from '../../App';
 import { googleLogin } from '../CreateUser/CreateUserManager';
 import Header from '../Header/Header';
 import './Login.css'
 import { emailSignIn } from './LoginManager';
+
 const Login = () => {
     const [user, setUser] = useState({});
+    const [loggedInUser,setLoggedInUser]=useContext(UserContext);
+
+    const history = useHistory();
+    const location = useLocation();
+    let { from } = location.state || { from: { pathname: "/" } };
+
     const handelInputValue=(e)=>{
         if (e.target.name === 'email') {
             user.email = e.target.value
@@ -19,16 +27,26 @@ const Login = () => {
     const loginByEmail = (e) => {
         emailSignIn(user.email, user.password)
             .then(res => {
+                setLoggedInUser(res)
                 setUser(res)
+                
+                if (res.isSignIn) {
+                    history.replace(from)
+                }
             })
         e.preventDefault()
     }
     const loginByGoogle =()=>{
         googleLogin()
         .then(res=>{
+            setLoggedInUser(res)
             setUser(res)
+            if (res.isSignIn) {
+                history.replace(from)
+            }
         })
     }
+    
     return (
         <Container>
             <Header></Header>

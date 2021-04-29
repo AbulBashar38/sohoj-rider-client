@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import { UserContext } from '../../App';
 import Header from '../Header/Header';
 import { configFunction, createUserByEmail, googleLogin } from './CreateUserManager';
 configFunction();
 const CreateUser = () => {
+    const [loggedInUser,setLoggedInUser]=useContext(UserContext)
     const [user, setUser] = useState({
         name: '',
         email: '',
         password: '',
         passNotMatch: false
     })
+
+    const history = useHistory();
+    const location = useLocation();
+    let { from } = location.state || { from: { pathname: "/" } };
 
     const emailAndPassChecker = (e) => {
         let isValid;
@@ -52,7 +58,11 @@ const CreateUser = () => {
         if (user.email && user.confirmPass) {
             createUserByEmail(user.name, user.email, user.password)
                 .then(res => {
+                    setLoggedInUser(res)
                     setUser(res);
+                    if (res.isSignIn) {
+                        history.replace(from)
+                    }
                 })
         }
         e.preventDefault()
@@ -61,8 +71,12 @@ const CreateUser = () => {
         googleLogin()
             .then(res => {
                 setUser(res)
+                if (res.isSignIn) {
+                    history.replace(from)
+                }
             })
     }
+    console.log(loggedInUser);
     return (
         <Container>
             <Header></Header>

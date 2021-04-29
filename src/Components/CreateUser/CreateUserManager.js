@@ -11,7 +11,7 @@ export const createUserByEmail = (name, email, password) => {
     return firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(res => {
             const userInfo = res.user;
-            userInfo.isSignIn = true
+            userInfo.isSignIn = true;
             updateName(name)
             return userInfo
         })
@@ -44,7 +44,7 @@ export const googleLogin = () => {
             const userInfo = {
                 name: displayName,
                 email:email,
-                isSignIn:true
+                isSignIn:true,
             }
             return userInfo
         }).catch(error => {
