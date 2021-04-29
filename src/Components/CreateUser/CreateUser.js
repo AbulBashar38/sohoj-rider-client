@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
-import { configFunction, createUserByEmail } from './CreateUserManager';
+import { configFunction, createUserByEmail, googleLogin } from './CreateUserManager';
 configFunction();
 const CreateUser = () => {
     const [user, setUser] = useState({
@@ -51,6 +51,12 @@ const CreateUser = () => {
         }
         e.preventDefault()
     }
+    const loginWithGoogle=()=>{
+        googleLogin()
+        .then(res=>{
+            setUser(res)
+        })
+    }
     return (
         <Container>
             <Header></Header>
@@ -78,7 +84,7 @@ const CreateUser = () => {
                     </Button>
                     <p>Already have an account? <Link to='/login'>Login</Link></p>
                     <br />
-                    <Button variant="success">Login with Google</Button>
+                    <Button variant="success" onClick={loginWithGoogle}>Login with Google</Button>
                 </Form>
             </div>
         </Container>
