@@ -9,7 +9,6 @@ import {
 } from "react-router-dom";
 import NotFound from './Components/NotFound/NotFound';
 import Login from './Components/Login/Login';
-import CreateUser from './Components/CreateUser/CreateUser';
 import Blog from './Components/Blog/Blog';
 import Contact from './Components/Contact/Contact';
 import Destination from './Components/Destination/Destination';
@@ -18,7 +17,6 @@ import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute';
 export const UserContext = createContext();
 function App() {
   const [loggedInUser, setLoggedInUser] = useState({});
-  
   return (
     <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
       <Router>
@@ -28,9 +26,6 @@ function App() {
           </Route>
           <Route path='/login'>
             <Login></Login>
-          </Route>
-          <Route path='/createUser'>
-            <CreateUser></CreateUser>
           </Route>
           <ProtectedRoute path='/destination'>
             <Destination></Destination>

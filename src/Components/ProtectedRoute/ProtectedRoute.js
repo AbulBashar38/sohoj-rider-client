@@ -4,7 +4,6 @@ import { UserContext } from '../../App';
 
 const ProtectedRoute = ({ children, ...rest }) => {
     const [loggedInUser, setLoggedInUser]=useContext(UserContext);
-    
     return (
         <Route
             {...rest}
@@ -14,7 +13,7 @@ const ProtectedRoute = ({ children, ...rest }) => {
                 ) : (
                     <Redirect
                         to={{
-                            pathname: `/login`,
+                            pathname: "/login",
                             state: { from: location }
                         }}
                     />
