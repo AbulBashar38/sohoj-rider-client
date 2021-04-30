@@ -3,18 +3,20 @@ import React, { useContext, useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { UserContext } from '../../App';
-
 import Header from '../Header/Header';
 import './Login.css'
 import { configFunction, createUserByEmail, emailSignIn, googleLogin } from './LoginManager';
+
 configFunction()
+
 const Login = () => {
     const [user, setUser] = useState({
-        name: '',
-        email: '',
-        password: '',
+        // name: '',
+        // email: '',
+        // password: '',
 
     });
+
     const [newUser, setNewUser] = useState(false)
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
 
@@ -22,32 +24,37 @@ const Login = () => {
     const location = useLocation();
     let { from } = location.state || { from: { pathname: "/" } };
 
-    console.log(location);
 
     const emailAndPassChecker = (e) => {
         let isValid;
         if (e.target.name === 'email') {
             const validEmailExpressions = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             const emailValid = validEmailExpressions.test(e.target.value)
+            console.log(emailValid);
             isValid = emailValid;
         }
         if (e.target.name === 'password') {
             const validPassExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 
             const passValid = validPassExpression.test(e.target.value)
+            console.log(passValid);
             if (passValid) {
                 user.password = e.target.value;
             }
             isValid = passValid;
         }
-        if (newUser && e.target.name === 'confirmPass') {
-            if (e.target.value === user.password) {
-                isValid = true
-            }
-            else {
-                const userInfo = { ...user };
-                userInfo.passNotMatch = true
-                setUser(userInfo)
+        console.log('isValid', isValid);
+        if (newUser) {
+            if (e.target.name === 'confirmPass') {
+                if (e.target.value === user.password) {
+                    isValid = true
+                    user.passNotMatch=false
+                }
+                else {
+                    const userInfo = { ...user };
+                    userInfo.passNotMatch = true
+                    setUser(userInfo)
+                }
             }
         }
         if (e.target.name === 'name') {
@@ -60,9 +67,10 @@ const Login = () => {
         }
 
     }
-
+    console.log(user);
     const loginAndCreateAC = (e) => {
-        if (newUser && user.email && user.confirmPass) {
+        if (newUser && !user.passNotMatch&& user.email && user.confirmPass) {
+            console.log('hi');
             createUserByEmail(user.name, user.email, user.password)
                 .then(res => {
                     setLoggedInUser(res)
@@ -72,16 +80,21 @@ const Login = () => {
                     }
                 })
         }
+        console.log(user);
         if (!newUser && user.email && user.password) {
             emailSignIn(user.email, user.password)
                 .then(res => {
-                    setLoggedInUser(res)
-                    setUser(res)
-
+                    const userInfo = {...user};
+                    userInfo.email = user.email;
+                    userInfo.error=res.error;
+                    userInfo.isSignIn = res.isSignIn;
+                    setLoggedInUser(userInfo)
+                    setUser(userInfo)
                     if (res.isSignIn) {
                         history.replace(from)
                     }
                 })
+                
         }
         e.preventDefault()
     }
@@ -107,25 +120,26 @@ const Login = () => {
 
                     {newUser && <Form.Group>
                         <Form.Label>Name</Form.Label>
-                        <Form.Control type="text" placeholder="Enter name" name='name' onChange={emailAndPassChecker} required />
+                        <Form.Control type="text" placeholder="Enter name" name='name' onBlur={emailAndPassChecker} required />
                     </Form.Group>}
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" name='email' onChange={emailAndPassChecker} placeholder="Enter email" required />
+                        <Form.Control type="email" name='email' onBlur={emailAndPassChecker} placeholder="Enter email" required />
                     </Form.Group>
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" name='password' placeholder="Password" onChange={emailAndPassChecker} required />
+                        <Form.Control type="password" name='password' placeholder="Password" onBlur={emailAndPassChecker} required />
                         {newUser && <Form.Text className="text-muted">
                             At least one number and one spacial character(!,@,#,$,%,^,*) need in your password
                                 </Form.Text>}
                     </Form.Group>
                     {newUser && <Form.Group controlId="formBasicPassword">
                         <Form.Label>Confirm password</Form.Label>
-                        <Form.Control type="password" name='confirmPass' placeholder="Confirm password" onChange={emailAndPassChecker} required />
+                        <Form.Control type="password" name='confirmPass' placeholder="Confirm password" onBlur={emailAndPassChecker} required />
                     </Form.Group>}
 
                     <p style={{ color: 'red' }}>
+                        {user.passNotMatch && "Password dosen't match"}
                         {user.error}
                     </p>
 
@@ -135,12 +149,12 @@ const Login = () => {
 
                     <br />
 
-                    <Form.Group controlId="formBasicCheckbox" style={{ fontSize: 'large',color:'blue'}}>
+                    <Form.Group controlId="formBasicCheckbox" style={{ fontSize: 'large', color: 'blue' }}>
                         <Form.Check onChange={() => setNewUser(!newUser)} type="checkbox" label="Check me out if you are a new user" />
                     </Form.Group>
 
                     <Button variant="success" onClick={loginByGoogle}>Login with Google</Button>
-                    
+
                 </Form>
             </div>
         </Container>
