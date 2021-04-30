@@ -10,12 +10,7 @@ import { configFunction, createUserByEmail, emailSignIn, googleLogin } from './L
 configFunction()
 
 const Login = () => {
-    const [user, setUser] = useState({
-        // name: '',
-        // email: '',
-        // password: '',
-
-    });
+    const [user, setUser] = useState({});
 
     const [newUser, setNewUser] = useState(false)
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
@@ -30,20 +25,17 @@ const Login = () => {
         if (e.target.name === 'email') {
             const validEmailExpressions = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             const emailValid = validEmailExpressions.test(e.target.value)
-            console.log(emailValid);
             isValid = emailValid;
         }
         if (e.target.name === 'password') {
             const validPassExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 
             const passValid = validPassExpression.test(e.target.value)
-            console.log(passValid);
             if (passValid) {
                 user.password = e.target.value;
             }
             isValid = passValid;
         }
-        console.log('isValid', isValid);
         if (newUser) {
             if (e.target.name === 'confirmPass') {
                 if (e.target.value === user.password) {
@@ -68,10 +60,8 @@ const Login = () => {
         }
 
     }
-    console.log(user);
     const loginAndCreateAC = (e) => {
         if (newUser && !user.passNotMatch&& user.email && user.confirmPass) {
-            console.log('hi');
             createUserByEmail(user.name, user.email, user.password)
                 .then(res => {
                     setLoggedInUser(res)
@@ -81,7 +71,6 @@ const Login = () => {
                     }
                 })
         }
-        console.log(user);
         if (!newUser && user.email && user.password) {
             emailSignIn(user.email, user.password)
                 .then(res => {
