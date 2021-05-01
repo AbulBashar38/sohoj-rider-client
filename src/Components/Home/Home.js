@@ -6,7 +6,6 @@ import Rides from '../Rides/Rides';
 import { Container, Row } from 'react-bootstrap';
 const Home = () => {
     const [rides,setRides]=useState([])
-    // console.log(fakeData);
     useEffect(()=>{
         setRides(fakeData)
         
@@ -18,7 +17,6 @@ const Home = () => {
             <Row className="riders-container">
             {rides.map(ride=><Rides key={ride.name} ride={ride}></Rides>)}
             </Row>
-           
         </Container>
         </div>
     );

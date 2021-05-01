@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 
 const Header = (props) => {
     return (
-            <Navbar>
-                <Navbar.Brand><Link to='/home' className='link-style' style={{ textDecoration: 'none' }}><strong>SOHOJ RIDERS</strong></Link></Navbar.Brand>
-                <Navbar.Collapse className="justify-content-end">
+            <Navbar collapseOnSelect expand="lg">
+                <Navbar.Brand><Link to='/home' className='link-style' style={{ textDecoration: 'none' }}><strong className='brandName'>SOHOJ RIDERS</strong></Link></Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse  id="basic-navbar-nav" className="justify-content-end">
                     <Nav>
                         <Nav.Item>
                             <Link className='link-style' to='/home'>Home</Link>

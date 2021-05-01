@@ -2,3 +2,8 @@
     color: black;
     margin: 0 10px;
 }
+@media (max-width: 480px){
+    .brandName{
+        font-size: 57%;
+    }
+}

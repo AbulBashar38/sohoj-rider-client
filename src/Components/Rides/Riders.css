@@ -2,3 +2,9 @@
     width: 12rem;
     padding: 8px;
 }
+@media (max-width: 480px){
+    .card-style{
+        margin: 15px 0;
+    }
+
+}
