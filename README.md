@@ -1,70 +1,21 @@
-# Getting Started with Create React App
+This is for user:
+{hi, my name is Abul Basar a learner, a junior web developer and a student of Programing Hero. The name of this web site is 'SOHOJ RIDERS' that means an easy transport system. In the home page of the web side you can see some transport ride named BIKE,TRAIN,CAR,BUS. If you click any button of the ride you will see that web side wants to verified you. For that you have to create an account account. if you want to create your account by your google account it is possible in this web site. For that just click the 'login with Google' button. After verified you can choose you destination. Thank you...}   
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is for examiner:
+{Assalamualaikum dear examiner. By this web site i try to fulfil all the requirement that was include in assignment(9). In the home page of navigation you will see the login button but after verification you will see the name of yours. In the login page if you have an account but you gives wrong password than you can see a error after that if you give right pass and onBlur it you can't see any error massage. To create "create account" section first time i write 'create new account' into a Link tag and give a path name. For that after clicking 'create new account' it would open a new page in a new route and when i use protected route i saw that the location state is disappeared. and it cant find the '/destination' path. for that user cant go the Destination component directly user come back the home page even he verified by login. After facing this problem i try the previous way that i learn from the Module. when i try to add map in my project i can find very easily and create api key also. but i will face a little error so that i embedded the map url For the convenience of the examiner i give the google map code here:
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<Map google={this.props.google} zoom={14}>
+ 
+        <Marker onClick={this.onMarkerClick}
+                name={'Current location'} />
+ 
+        <InfoWindow onClose={this.onInfoWindowClose}>
+            <div>
+              <h1>{this.state.selectedPlace.name}</h1>
+            </div>
+        </InfoWindow>
+      </Map>
+export default GoogleApiWrapper({
+  apiKey: (YOUR_GOOGLE_API_KEY_GOES_HERE)
+})(MapContainer)
+ }
