@@ -1,0 +1,11 @@
+.rideImgStyle img{
+ width: 80px;
+}
+.rideSection{
+    margin: 15px;
+    border-radius: 10px;
+    background-color: white;
+    /* border: 2px solid red; */
+    text-align: center;
+    
+}

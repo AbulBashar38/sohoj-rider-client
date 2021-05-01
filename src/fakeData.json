@@ -1,13 +1,21 @@
 [{
     "name": "BUS",
-    "img": "https://usaupload.com/cache/plugins/filepreviewer/41017/890e3ca3b4d04f24d8e5b0b9b940e0a6eeaad1c1a34e142cadff3e64f09c4a55/180x150_cropped.jpg"
+    "img": "https://usaupload.com/cache/plugins/filepreviewer/41017/890e3ca3b4d04f24d8e5b0b9b940e0a6eeaad1c1a34e142cadff3e64f09c4a55/180x150_cropped.jpg",
+    "passenger":100,
+    "price":"Per ticket $20"
   }, {
-    "name": "TRIAN",
-    "img": "https://usaupload.com/cache/plugins/filepreviewer/41021/868ac16321e9f86d6d048e45fa96902cce8b927603c0ae8cf34fd2272891feae/180x150_cropped.jpg"
+    "name": "TRAIN",
+    "img": "https://usaupload.com/cache/plugins/filepreviewer/41021/868ac16321e9f86d6d048e45fa96902cce8b927603c0ae8cf34fd2272891feae/180x150_cropped.jpg",
+    "passenger":800,
+    "price":"Per ticket $10"
   }, {
     "name": "BIKE",
-    "img": "https://usaupload.com/cache/plugins/filepreviewer/41019/36f61a8cca9649806762e1e7f34a9000c325668073821fa63995c4cf5e148826/180x150_cropped.jpg"
+    "img": "https://usaupload.com/cache/plugins/filepreviewer/41019/36f61a8cca9649806762e1e7f34a9000c325668073821fa63995c4cf5e148826/180x150_cropped.jpg",
+    "passenger":1,
+    "price":"$50"
   }, {
     "name": "CAR",
-    "img": "https://usaupload.com/cache/plugins/filepreviewer/41018/96f2606e4f1fea785c6c977c5dd0952af915403d67e7d7aada13b1effe57a65c/180x150_cropped.jpg"
+    "img": "https://usaupload.com/cache/plugins/filepreviewer/41018/96f2606e4f1fea785c6c977c5dd0952af915403d67e7d7aada13b1effe57a65c/180x150_cropped.jpg",
+    "passenger":4,
+    "price":"$80"
   }]

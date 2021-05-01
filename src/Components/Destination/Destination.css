@@ -1,0 +1,12 @@
+.destination-form{
+    background-color: rgb(243, 240, 240);
+    padding: 15px;
+    border-radius: 10px;
+}
+.detailsSummary{
+    text-align: center;
+    color: white;
+    background-color: tomato;
+    padding: 10px;
+    border-radius: 10px;
+}

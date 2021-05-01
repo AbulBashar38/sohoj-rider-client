@@ -3,7 +3,7 @@ import './Header.css'
 import { Button, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-const Header = () => {
+const Header = (props) => {
     return (
             <Navbar>
                 <Navbar.Brand><Link to='/home' className='link-style' style={{ textDecoration: 'none' }}><strong>SOHOJ RIDERS</strong></Link></Navbar.Brand>
@@ -22,7 +22,7 @@ const Header = () => {
                             <Link to='/contact' className='link-style'>Contact</Link>
                         </Nav.Item>
                     </Nav>
-                    <Button variant="danger"><Link to='/login' style={{color:'white',textDecoration: 'none'}}>Login</Link></Button>
+                    {props.children?props.children:<Button variant="danger"><Link to='/login' style={{color:'white',textDecoration: 'none'}}>Login</Link></Button>}
                 </Navbar.Collapse>
             </Navbar>
         
