@@ -16,8 +16,8 @@ The name of this web site is 'SOHOJ RIDERS' that means an easy transport system.
  * Firebase
  * Google map
  ## Home page
- ![home](./src/image/riderHome.png)
+ ![home](./src/images/riderHome.png)
  ## Destination page
-  ![destinarion](./src/image/riderDestination.png)
+  ![destinarion](./src/images/riderDestination.png)
  ## Confirm hiring page
-  ![details](./src/image/riderDetails.png)
+  ![details](./src/images/riderDetails.png)
