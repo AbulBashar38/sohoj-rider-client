@@ -1,4 +1,4 @@
-
+import firebase from "firebase/app";
 import React, { useContext, useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -94,12 +94,21 @@ const Login = () => {
             .then(res => {
                 setLoggedInUser(res)
                 setUser(res)
-
+                createAuthToken()
                 if (res.isSignIn) {
                     history.replace(from)
                 }
             })
     }
+
+    const createAuthToken =()=>{
+        firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+            sessionStorage.setItem('token', idToken)
+          }).catch(function(error) {
+            
+          });
+    }
+
     return (
         <Container>
             <Header></Header>
